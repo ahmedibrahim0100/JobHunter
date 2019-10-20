@@ -1,0 +1,14 @@
+﻿.myfooter{
+    background-color:#00ffff;
+    text-align:center;
+    max-height:170px;
+}
+
+.subfooter{
+    background-color:#41454a;
+    color:white;
+    text-align:center;
+    height:20px;
+}
+
+.myfooter a{ color:azure;}
