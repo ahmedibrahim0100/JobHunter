@@ -3,23 +3,24 @@
     ViewBag.Title = "Home Page";
 }
 
-<h3 style="background-color:#00ffff;">Welcome to our Job Offers Platform</h3>
+<h3 style="background-color:#00ffff; margin-top:20px;">Welcome to our Job Offers Platform</h3>
 
 @foreach (var item in Model)
 {
     <div class="panel panel-default">
 
-        <h1 class="panel-heading">@Html.DisplayFor(modelItem => item.CategoryName)</h1>
+        <h1 class="panel-heading" style="background-color:cornflowerblue;">@Html.DisplayFor(modelItem => item.CategoryName)</h1>
         <h5>@Html.DisplayFor(modelItem => item.CategoryDescription)</h5>
         <div class="row">
             @foreach (var subItem in item.jobs)
             {
-                <div class="col-md-3 thumbnail" style="margin-left:20px;
-margin-bottom:30px; height:380px;">
-                    <img src="~/Uploads/@subItem.jobImage" />
+                <div class="col-md-3 img-thumbnail" style="margin-left:20px;
+margin-bottom:30px;">
+                    <img src="~/Uploads/@subItem.jobImage" class="img-thumbnail" 
+                         />
                     <h3>@Html.DisplayFor(modelItem => subItem.JobTitle)</h3>
                     <h5>@Html.DisplayFor(modelItem => subItem.JobContent)</h5>
-                    <button class="btn btn-default">Details</button>
+                    @Html.ActionLink("Details", "Details", new { jobId = subItem.ID}, new { @class = "btn btn-primary"})
                 </div>
             }
         </div>

@@ -19,6 +19,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.jobImage)
 
         <div class="form-group">
             @Html.LabelFor(model => model.JobTitle, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.jobImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="upload" id="JobImage"/>
+                <input type="file" name="upload" id="JobImageInput"/>
                 @Html.ValidationMessageFor(model => model.jobImage, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,15 +66,34 @@
 </div>
 
 @section scripts{
-<script>
-    $(function () {
-        $("#save").click(function () {
-            if ($("#JobImage").val() == "") {
-                $("#error-div").fadeIn();
-                $("#view-err").append("Kindly, select image");
-                return false;
-            }
-        })
-    });
-</script>
-    }
+    <script>
+        $(function () {
+            $("#save").click(function () {
+                //check if input is empty
+                
+                if ($("#JobImageInput").val != "") {
+                    //check if image extension is valid
+                    var filename = document.getElementById("JobImageInput").value;
+                    var extensionImg = filename.substr(filename.lastIndexOf('.') + 1);
+                    var validExtensions = ['jpg', 'png', 'gif', 'bmp'];
+                    if ($.inArray(extensionImg, validExtensions) == -1) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("Use correct extension");
+                        return false;
+                    }
+
+                    //check image size
+                    var myFileSize = document.getElementById("JobImageInput").files[0].size / 1024 / 1024;
+                    if (myFileSize > 2) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("Choose allowed image size");
+                        return false;
+                    }
+                }
+            })
+        }
+        )
+
+    </script>    
+}
+

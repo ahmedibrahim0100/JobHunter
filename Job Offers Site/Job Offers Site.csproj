@@ -48,12 +48,12 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -187,6 +187,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\search icon.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.min.js" />
@@ -206,6 +207,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,12 +232,24 @@
     <Compile Include="Migrations\201910201342555_ModifyCategories.Designer.cs">
       <DependentUpon>201910201342555_ModifyCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910261353144_AddTableApplyForJob.cs" />
+    <Compile Include="Migrations\201910261353144_AddTableApplyForJob.Designer.cs">
+      <DependentUpon>201910261353144_AddTableApplyForJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910281601072_EditJobModel.cs" />
+    <Compile Include="Migrations\201910281601072_EditJobModel.Designer.cs">
+      <DependentUpon>201910281601072_EditJobModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplyForJob.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -280,6 +294,20 @@
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Apply.cshtml" />
+    <Content Include="Views\Home\GetJobsByUser.cshtml" />
+    <Content Include="Views\Home\DetailsOfJob.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\GetJobsByPublisher.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -290,6 +318,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="EntityFramework.6.1.3\" />
+    <Folder Include="scripts\ckeditor\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +336,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910201342555_ModifyCategories.resx">
       <DependentUpon>201910201342555_ModifyCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910261353144_AddTableApplyForJob.resx">
+      <DependentUpon>201910261353144_AddTableApplyForJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910281601072_EditJobModel.resx">
+      <DependentUpon>201910281601072_EditJobModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

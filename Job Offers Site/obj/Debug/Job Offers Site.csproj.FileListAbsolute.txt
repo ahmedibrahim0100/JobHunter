@@ -80,3 +80,5 @@ C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offer
 C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offers Site\obj\Debug\Job_Offers_Site.Migrations.AddCategoryTable.resources
 C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offers Site\obj\Debug\Job_Offers_Site.Migrations.AddJobsTable.resources
 C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offers Site\obj\Debug\Job_Offers_Site.Migrations.ModifyCategories.resources
+C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offers Site\obj\Debug\Job_Offers_Site.Migrations.AddTableApplyForJob.resources
+C:\Users\toshiba\Documents\Visual Studio 2015\Projects\Job Offers Site\Job Offers Site\obj\Debug\Job_Offers_Site.Migrations.EditJobModel.resources

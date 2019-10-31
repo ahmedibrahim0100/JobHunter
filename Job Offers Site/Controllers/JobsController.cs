@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Job_Offers_Site.Models;
 using WebApplication1.Models;
 using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace Job_Offers_Site.Controllers
 {
@@ -57,6 +58,7 @@ namespace Job_Offers_Site.Controllers
                 string path = Path.Combine(Server.MapPath("~/Uploads"), upload.FileName);
                 upload.SaveAs(path);
                 job.jobImage = upload.FileName;
+                job.UserId = User.Identity.GetUserId();
                 db.Jobs.Add(job);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,9 +93,14 @@ namespace Job_Offers_Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                string path = Path.Combine(Server.MapPath("~/Uploads"), upload.FileName);
-                upload.SaveAs(path);
-                job.jobImage = upload.FileName;
+                string oldPath = Path.Combine(Server.MapPath("~/Uploads"), job.jobImage);
+                if(upload != null)
+                {
+                    System.IO.File.Delete(oldPath);
+                    string path = Path.Combine(Server.MapPath("~/Uploads"), upload.FileName);
+                    upload.SaveAs(path);
+                    job.jobImage = upload.FileName;
+                }
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

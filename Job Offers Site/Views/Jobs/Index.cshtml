@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_MainPageLayout.cshtml";
 }
 
-<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -36,7 +35,8 @@
             @Html.DisplayFor(modelItem => item.JobTitle)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.JobContent)
+            @*@Html.DisplayFor(modelItem => item.JobContent)*@
+            @Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(modelItem => item.JobContent).ToString()))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.jobImage)

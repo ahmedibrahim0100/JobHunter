@@ -1,15 +1,40 @@
 ﻿@using Microsoft.AspNet.Identity
+@using WebApplication1.Models
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoff" }))
     {
+        var db = new ApplicationDbContext();
+        var userId = User.Identity.GetUserId();
+        var currentUser = db.Users.Where(a => a.Id == userId).SingleOrDefault();
+
         @Html.AntiForgeryToken()
         <form class="form-inline my-2 my-lg-0">
+       
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome @currentUser.UserName    
+                </a>
+                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="~/Home/GetJobsByPublisher">Jobs Posted</a>
+                    <a class="dropdown-item" href="~/Home/GetJobsByUser">Applications</a>
+                   <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="~/Account/EditProfile">Edit Profile</a>
+                   <a class="dropdown-item" href="javascript:document.getElementById('logoff').submit()">Log Out</a>
+                </div>
+            </div>
+            
+        </form> 
+
+        <!--Old Design-->
+        @*<form class="form-inline my-2 my-lg-0">
             <span>
                 @Html.ActionLink("Welcome " + User.Identity.GetUserName(), "Index", "Manage")
             </span>
             <a class="my-2 my-sm-0" href="javascript:document.getElementById('logoff').submit()">Log Out</a>
-        </form>
+        </form>*@
+            
     }
 }
 else

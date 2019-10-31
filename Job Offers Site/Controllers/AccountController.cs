@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
+using System.Data.Entity;
 
 namespace WebApplication1.Controllers
 {
@@ -17,9 +18,11 @@ namespace WebApplication1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -139,7 +142,7 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.UserType = new SelectList(new[] { "Job Seeker", "Publisher" });
+            ViewBag.UserType = new SelectList(db.Roles.Where(a => !a.Name.Contains("Administrator")).ToList(), "Name", "Name");
             return View();
         }
 
@@ -152,7 +155,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.UserType = new SelectList(new[] { "Job Seeker", "Publisher" });
+                ViewBag.UserType = new SelectList(db.Roles, "Name", "Name");
                 var user = new ApplicationUser { UserName = model.UserName,UserType=model.UserType, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -423,6 +426,39 @@ namespace WebApplication1.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        //Get
+        public ActionResult EditProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Where(a => a.Id == userId).SingleOrDefault();
+            EditProfileViewModel profile = new EditProfileViewModel();
+            profile.Email = user.Email;
+            return View(profile);
+        }
+
+        //Post
+        [HttpPost]
+        public ActionResult EditProfile(EditProfileViewModel profile)
+        {
+            var userId = User.Identity.GetUserId();
+            var currentUser = db.Users.Where(a => a.Id == userId).SingleOrDefault();
+            if(!UserManager.CheckPassword(currentUser, profile.OldPassword))
+            {
+                ViewBag.Message = "Current Password isn't correct";
+            }
+            else
+            {
+                var newPasswordHash = UserManager.PasswordHasher.HashPassword(profile.Password);
+                currentUser.UserName = profile.UserName;
+                currentUser.Email = profile.Email;
+                currentUser.PasswordHash = newPasswordHash;
+                db.Entry(currentUser).State = EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "Profile Updated Successfully";
+            }
+            return View(profile);
         }
 
         #region Helpers
